@@ -18,7 +18,6 @@ import (
 )
 
 func Router(cont container.Container) http.Handler {
-
 	router := chi.NewRouter()
 
 	router.Use(middleware.RedirectSlashes, middleware.Logger, cors.Handler(cors.Options{
@@ -111,6 +110,14 @@ func TaskRouter(r chi.Router, tc controllers.TaskController) {
 		apiRouter.Get(
 			"/",
 			tc.FindByUserId(),
+		)
+		apiRouter.Get(
+			"/{id}",
+			tc.FindById(),
+		)
+		apiRouter.Put(
+			"/{id}",
+			tc.Update(),
 		)
 	})
 }
